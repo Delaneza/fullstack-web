@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Crud Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular-route.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    <script src="./app.controller.js"></script>
+  </head>
+  <body ng-app="MyApp">
+    <div ng-controller="AppController as vm" class="jumbotron">
+      <h1 class="display-4 text-center">{{ title }}</h1>
+      <ul class="lead">
+        <li ng-repeat="obj in vm.listObj">
+          <div class="row">
+                <div class="col-10">
+                        <span class="d-block">Name: <span>{{ obj.name }}</span></span>
+                        <span>Age: <span>{{ obj.age }}</span></span>
+                  </div>
+                  <div class="col-2">
+                        <span style="font-size: 12; color:red !important; cursor: pointer;" ng-click="vm.deleteElement(obj.id)"><i class="fa fa-trash"></i></span>
+                  </div>
+          </div>
+          <hr>
+        </li>
+      </ul>
+      <div class="container">
+          <form action="">
+              <input type="text" name="name" placeholder="Name" ng-model="vm.name">
+              <input type="text" name="age" placeholder="Age" ng-model="vm.age">
+              <input type="button" value="Submit" ng-click="vm.appendElements()">
+          </form>
+      </div>
+    </div>
+  </body>
+</html>
