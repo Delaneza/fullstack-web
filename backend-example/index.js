@@ -1,12 +1,15 @@
-import app from './src/app';
 import { config as injectEnvriommentsConfig } from 'dotenv';
 
-injectEnvriommentsConfig();
+import app from './src/app';
 
-const port = process.env.PORT || 8088
+function boostrap() {
+    injectEnvriommentsConfig();
+    const port = process.env.PORT;
 
-app.listen(port, () => {
-    console.log("Application started! at port", port);
-});
+    app.listen(port, () => {
+        console.log("Application started! at port", port);
+    });
+}
+boostrap();
 
 export default app;

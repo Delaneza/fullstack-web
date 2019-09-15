@@ -1,7 +1,8 @@
-import { Router as router } from 'express';
+import { Router } from 'express';
 
 import PostController from '../controllers/post.controller'
 
+const router = Router();
 const postController = new PostController
 
 export default () => {

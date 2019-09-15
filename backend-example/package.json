@@ -14,6 +14,14 @@
     "express": "^4.17.1",
     "helmet": "^3.21.0",
     "morgan": "^1.9.1",
+    "pg": "^7.12.1",
     "pg-hstore": "^2.3.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "scripts": {
+    "start": "babel-node index.js"
   }
 }

@@ -1,13 +1,13 @@
-import { express } from 'express';
+import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
+import bodyParser from 'body-parser';
 
 import ErrorHandler from './middlewares/ErrorHandler'
 import indexRoutes from './routes/index.routes';
 import userRoutes from './routes/user.routes';
 import postRoutes from './routes/post.routes';
 import commentRoutes from './routes/comment.routes';
-
 
 function configureServer() {
     const app = addDepencies();
@@ -25,7 +25,7 @@ function addGlobalMiddlewares(app) {
     app.use(cors())
     app.use(morgan('dev'))
     // morgan(':method :url :status :res[content-length] - :response-time ms')
-    app.use(express.json())
+    app.use(bodyParser.json())
     app.use(ErrorHandler)
     return app;
 }
