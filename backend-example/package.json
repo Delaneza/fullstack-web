@@ -1,0 +1,27 @@
+{
+  "name": "backend-example",
+  "version": "1.0.0",
+  "description": "Backend using express",
+  "main": "index.js",
+  "repository": "https://github.com/Delaneza/fullstack-web",
+  "author": "Rodrigo Pereira e Gabriel Delaneza",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.1.0",
+    "express": "^4.17.1",
+    "helmet": "^3.21.0",
+    "morgan": "^1.9.1",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "scripts": {
+    "start": "babel-node index.js"
+  }
+}
