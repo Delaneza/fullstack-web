@@ -1,28 +1,43 @@
 import PostService from '../services/post.service';
 
+const postService = new PostService();
+
 class PostController {
-    constructor() {
-        // this.postService = new PostService();
+    async getAll(req, res) {
+        const obj = await postService.getAll();
+        if (obj.length) {
+            return res.send(obj);
+        }
+        return res.status(404).send();
     }
 
-    getAll(req, res) {
-        // return commentService
+    async getSingle(req, res) {
+        const obj = await postService.getSingle(req.params.id)
+        if (obj.length) {
+            return res.send(obj[0]);
+        }
+        return res.status(404).send();
     }
 
-    getSingle(req, res) {
-
+    async create(req, res) {
+        const obj = await postService.create(req.body)
+        return res.status(200).send(obj[0]);
     }
 
-    create(req, res) {
-
+    async update(req, res) {
+        const obj = await postService.update(req.body, req.params.id)
+        if (obj.length) {
+            return res.status(200).send(obj[0])
+        }
+        return res.status(404).send();
     }
 
-    update(req, res) {
-
-    }
-
-    delete(req, res) {
-
+    async delete(req, res) {
+        const obj = await postService.delete(req.params.id)
+        if (obj.length) {
+            return res.status(200).send(obj[0])
+        }
+        return res.status(404).send();
     }
 }
 

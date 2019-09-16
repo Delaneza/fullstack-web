@@ -39,11 +39,23 @@ class SqlQueries {
     async update(table, requestObj, id) {
         const obj = this._prepareUpdateStatement(table, requestObj);
         obj.values.push(Number(id))
-        return this._mapResponseObject(await client.query(obj.query + `WHERE id = $${obj.values.length}`, obj.values))
+        return this._mapResponseObject(await client.query(obj.query + `WHERE id = $${obj.values.length} RETURNING id`, obj.values))
     }
 
     async deleteById(table, id) {
-        return this._mapResponseObject(await client.query(`DELETE FROM ${table} WHERE id = $1`, [id]));
+        return this._mapResponseObject(await client.query(`DELETE FROM ${table} WHERE id = $1 RETURNING id`, [id]));
+    }
+
+    async deleteOnCascade(table, childTableList, paramNameList, id) {
+        await this.deleteIndividualItemsFromTable(childTableList[0], paramNameList[0], id)
+        console.log('preciso terminar antes')
+        await this.deleteIndividualItemsFromTable(childTableList[1], paramNameList[1], id)
+        console.log('preciso terminar')
+        return this._mapResponseObject(await client.query(`DELETE FROM ${table} WHERE id = $1 RETURNING id`, [id]));
+    }
+
+    async deleteIndividualItemsFromTable(childTable, paramName, id) {
+        await client.query(`DELETE FROM ${childTable} WHERE ${paramName} = $1`, [id]);
     }
 
     async _waitConnection() {

@@ -9,7 +9,7 @@ export default () => {
     router.get('/', postController.getAll);
     router.get('/:id', postController.getSingle);
     router.post('/', postController.create);
-    router.put('/', postController.update);
-    router.delete('/', postController.delete);
+    router.put('/:id', postController.update);
+    router.delete('/:id', postController.delete);
     return router;
 }

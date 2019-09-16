@@ -34,7 +34,7 @@ function addApplicationRoutes(app) {
     app.use("/", indexRoutes())
     app.use("/user", userRoutes());
     app.use("/post", postRoutes());
-    app.use("/:postId/comment", commentRoutes());
+    app.use("/comment", commentRoutes());
     return app;
 }
 
