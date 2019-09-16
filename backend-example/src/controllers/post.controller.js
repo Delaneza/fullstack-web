@@ -19,6 +19,14 @@ class PostController {
         return res.status(404).send();
     }
 
+    async getComments(req, res) {
+        const obj = await postService.getComments(req.params.id)
+        if (obj.length) {
+            return res.send(obj);
+        }
+        return res.status(404).send();
+    }
+
     async create(req, res) {
         const obj = await postService.create(req.body)
         return res.status(200).send(obj[0]);

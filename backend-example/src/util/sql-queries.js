@@ -27,8 +27,8 @@ class SqlQueries {
         return this._mapResponseObject(await client.query(`SELECT * FROM ${table} WHERE id= $1 AND status <> $2`, [id, 'INACTIVE']));
     }
 
-    async getSingleByAttribute(table, atribute, attributeValue) {
-        return this._mapResponseObject(await client.query(`SELECT * FROM ${table}`));
+    async getAllByAttribute(table, atribute, attributeValue) {
+        return this._mapResponseObject(await client.query(`SELECT * FROM ${table} WHERE ${atribute} = $1 AND status <> $2`, [attributeValue, 'INACTIVE']));
     }
 
     async create(table, requestObj) {

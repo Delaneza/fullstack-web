@@ -5,7 +5,6 @@ const commentService = new CommentService();
 class CommentController {
     async getAll(req, res) {
         const obj = await commentService.getAll();
-        console.log(obj)
         if (obj.length) {
             return res.send(obj);
         }
