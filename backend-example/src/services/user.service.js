@@ -22,7 +22,7 @@ class UserService {
     }
 
     async delete(id) {
-        return await userQueries.deleteOnCascade('posts', ['comments', 'posts'], ['user_id', 'user_id'], id);
+        return await userQueries.deleteOnCascade('users', ['comments', 'posts'], ['user_id', 'user_id'], id);
     }
 }
 
