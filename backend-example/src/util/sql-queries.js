@@ -20,15 +20,15 @@ class SqlQueries {
     }
 
     async getAll(table) {
-        return this._mapResponseObject(await client.query(`SELECT * FROM ${table}`));
+        return this._mapResponseObject(await client.query(`SELECT * FROM ${table} WHERE status <> $1`, ['INACTIVE']));
     }
 
     async getSingleById(table, id) {
-        return this._mapResponseObject(await client.query(`SELECT * FROM ${table} WHERE id= $1`, [id]));
+        return this._mapResponseObject(await client.query(`SELECT * FROM ${table} WHERE id= $1 AND status <> $2`, [id, 'INACTIVE']));
     }
 
-    async getSingleByAttribute(table, atribute, attributeValue) {
-        return this._mapResponseObject(await client.query(`SELECT * FROM ${table}`));
+    async getAllByAttribute(table, atribute, attributeValue) {
+        return this._mapResponseObject(await client.query(`SELECT * FROM ${table} WHERE ${atribute} = $1 AND status <> $2`, [attributeValue, 'INACTIVE']));
     }
 
     async create(table, requestObj) {
@@ -43,19 +43,19 @@ class SqlQueries {
     }
 
     async deleteById(table, id) {
-        return this._mapResponseObject(await client.query(`DELETE FROM ${table} WHERE id = $1 RETURNING id`, [id]));
+        return this._mapResponseObject(await client.query(`UPDATE ${table} SET status = $1 WHERE id = $2 RETURNING id`, ['INACTIVE', id]));
     }
 
     async deleteOnCascade(table, childTableList, paramNameList, id) {
         await this.deleteIndividualItemsFromTable(childTableList[0], paramNameList[0], id)
-        console.log('preciso terminar antes')
-        await this.deleteIndividualItemsFromTable(childTableList[1], paramNameList[1], id)
-        console.log('preciso terminar')
-        return this._mapResponseObject(await client.query(`DELETE FROM ${table} WHERE id = $1 RETURNING id`, [id]));
+        if (childTableList[1]) {
+            await this.deleteIndividualItemsFromTable(childTableList[1], paramNameList[1], id)
+        }
+        return this._mapResponseObject(await client.query(`UPDATE ${table} SET status = $1 WHERE id = $2 RETURNING id`, ['INACTIVE', id]));
     }
 
     async deleteIndividualItemsFromTable(childTable, paramName, id) {
-        await client.query(`DELETE FROM ${childTable} WHERE ${paramName} = $1`, [id]);
+        await client.query(`UPDATE ${childTable} SET status = $1 WHERE ${paramName} = $2`, ['INACTIVE', id]);
     }
 
     async _waitConnection() {

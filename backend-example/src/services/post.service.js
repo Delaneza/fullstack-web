@@ -10,6 +10,10 @@ class PostService {
         return await userQueries.getSingleById('posts', id);
     }
 
+    async getComments(id) {
+        return await userQueries.getAllByAttribute('comments', 'post_id', id);
+    }
+
     async create(reqObj) {
         return await userQueries.create('posts', reqObj);
     }

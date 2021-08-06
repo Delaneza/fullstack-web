@@ -8,6 +8,7 @@ const postController = new PostController
 export default () => {
     router.get('/', postController.getAll);
     router.get('/:id', postController.getSingle);
+    router.get('/:id/comments', postController.getComments);
     router.post('/', postController.create);
     router.put('/:id', postController.update);
     router.delete('/:id', postController.delete);

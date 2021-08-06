@@ -23,8 +23,7 @@ function addDepencies() {
 
 function addGlobalMiddlewares(app) {
     app.use(cors())
-    app.use(morgan('dev'))
-    // morgan(':method :url :status :res[content-length] - :response-time ms')
+    app.use(morgan(':remote-user \x1b[33mHTTP/:http-version :method :url\x1b[32m :status\x1b[31m :response-time ms\x1b[0m | \x1b[34m:date[web]\x1b[0m'))
     app.use(bodyParser.json())
     app.use(ErrorHandler)
     return app;
